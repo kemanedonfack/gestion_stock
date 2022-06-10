@@ -11,10 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -31,6 +33,9 @@ public class CommandeFournisseur extends AbstractEntity {
 
 	@Column(name = "date_commande")
 	private Instant dateCommande;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
 	
 	@ManyToOne
 	@JoinColumn(name = "idfournisseur")

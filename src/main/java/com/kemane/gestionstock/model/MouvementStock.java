@@ -10,10 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -24,8 +26,14 @@ public class MouvementStock extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
+	@Column(name = "type_mouvement_stock")
+	private TypeMouvementStock typeMouvementStock;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
+
 	@Column(name = "date_mouvement")
 	private Instant dateMouvement;
 	
@@ -35,8 +43,6 @@ public class MouvementStock extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "idarticle")
 	private Article article;
-	
-	@Column(name = "type_mouvement_stock")
-	private TypeMouvementStock mouvementStock;
+
 }	
 

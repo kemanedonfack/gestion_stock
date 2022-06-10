@@ -9,10 +9,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -41,6 +43,9 @@ public class Client extends AbstractEntity {
 
 	@Column(name = "numero")
 	private String number;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
 	
 	@OneToMany(mappedBy = "client")
 	private List<CommandeClient> commandeClients;

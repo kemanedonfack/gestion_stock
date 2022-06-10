@@ -11,10 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,10 +29,10 @@ public class Utilisateur extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "nom")
-	private String nom;
+	private String name;
 	
 	@Column(name = "prenom")
-	private String prenom;
+	private String surname;
 	
 	@Column(name = "email")
 	private String email;

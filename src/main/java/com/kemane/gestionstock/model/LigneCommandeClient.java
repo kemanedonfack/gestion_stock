@@ -9,10 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,7 +25,16 @@ public class LigneCommandeClient extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
 	
+	@Column(name = "quantite")
+	private BigDecimal quantity;
+	
+	@Column(name = "prix_unitaire")
+	private BigDecimal prixUnitaire;
+
 	@ManyToOne
 	@JoinColumn(name = "idarticle")
 	private Article article;
@@ -31,10 +42,4 @@ public class LigneCommandeClient extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "idcommandeclient")
 	private CommandeClient commandeClient;
-	
-	@Column(name = "quantite")
-	private BigDecimal quantity;
-	
-	@Column(name = "prix_unitaire")
-	private BigDecimal prixUnitaire;
 }

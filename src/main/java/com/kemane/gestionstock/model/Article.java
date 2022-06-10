@@ -9,10 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -41,6 +43,9 @@ public class Article extends AbstractEntity {
 
 	@Column(name = "photo")
 	private String photo;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
 	
 	@ManyToOne
 	@JoinColumn(name = "idcategorie")

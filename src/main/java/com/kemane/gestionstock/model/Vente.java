@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -30,4 +32,7 @@ public class Vente extends AbstractEntity {
 	
 	@Column(name = "commentaire")
 	private String commentaire;
+
+	@Column(name = "identreprise")
+	private Integer idEntreprise;
 }
