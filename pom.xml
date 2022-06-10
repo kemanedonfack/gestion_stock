@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kemane</groupId>
-	<artifactId>gestion_stock</artifactId>
+	<artifactId>gestion-stock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestion_stock</name>
-	<description>API REST application gestion de stock</description>
+	<name>gestion-stock</name>
+	<description>API pour application de gestion de stock</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -21,7 +21,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!--  <dependency>
+	<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>-->
