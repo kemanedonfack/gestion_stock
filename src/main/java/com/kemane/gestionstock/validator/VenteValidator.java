@@ -6,7 +6,7 @@ import java.util.List;
 import com.kemane.gestionstock.dto.VenteDto;
 import org.springframework.util.StringUtils;
 
-public class VentesValidator {
+public class VenteValidator {
 
   public static List<String> validate(VenteDto dto) {
     List<String> errors = new ArrayList<>();
