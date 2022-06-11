@@ -27,6 +27,8 @@ public class ClientDto {
 
 	private String number;
 
+	private Integer idEntreprise;
+
 	@JsonIgnore
 	private List<CommandeClientDto> commandeClients;
 
@@ -41,6 +43,7 @@ public class ClientDto {
 				.photo(client.getPhoto())
 				.mail(client.getMail())
 				.number(client.getNumber())
+				.idEntreprise(client.getIdEntreprise())
 				.adresse(AdresseDto.fromEntity(client.getAdresse()))
 				.build();
 	}
@@ -55,6 +58,7 @@ public class ClientDto {
 		client.setName(clientDto.getName());
 		client.setSurname(clientDto.getSurname());
 		client.setNumber(clientDto.getNumber());
+		client.setIdEntreprise(clientDto.getIdEntreprise());
 		client.setAdresse(AdresseDto.toEntity(clientDto.getAdresse()));
 		client.setPhoto(clientDto.getPhoto());
 

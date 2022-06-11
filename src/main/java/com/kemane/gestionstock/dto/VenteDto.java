@@ -1,7 +1,9 @@
 package com.kemane.gestionstock.dto;
 
 import java.time.Instant;
+import java.util.List;
 
+import com.kemane.gestionstock.model.LigneVente;
 import com.kemane.gestionstock.model.Role;
 import com.kemane.gestionstock.model.Vente;
 import lombok.Builder;
@@ -18,6 +20,10 @@ public class VenteDto {
 	
 	private String commentaire;
 
+	private Integer idEntreprise;
+
+	private List<LigneVenteDto> ligneVentes;
+
 	public static VenteDto fromEntity(Vente vente) {
 		if(vente == null) {
 			return null;
@@ -26,6 +32,7 @@ public class VenteDto {
 				.id(vente.getId())
 				.code(vente.getCode())
 				.dateVente(vente.getDateVente())
+				.idEntreprise(vente.getIdEntreprise())
 				.commentaire(vente.getCommentaire())
 				.build();
 	}

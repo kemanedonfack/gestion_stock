@@ -14,7 +14,7 @@ import lombok.Data;
 public class CommandeClientDto {
 
 	private int id;
-	
+
 	private String code;
 
 	private Instant dateCommande;
@@ -23,6 +23,8 @@ public class CommandeClientDto {
 
 	private List<LigneCommandeClientDto> ligneCommandeClient;
 
+	private Integer idEntreprise;
+
 	public static CommandeClientDto fromEntity(CommandeClient commandeClient) {
 		if(commandeClient == null) {
 			return null;
@@ -30,6 +32,7 @@ public class CommandeClientDto {
 		return CommandeClientDto.builder()
 				.id(commandeClient.getId())
 				.code(commandeClient.getCode())
+				.idEntreprise(commandeClient.getIdEntreprise())
 				.dateCommande(commandeClient.getDateCommande())
 				.client(ClientDto.fromEntity(commandeClient.getClient()))
 				.build();
@@ -42,6 +45,7 @@ public class CommandeClientDto {
 		CommandeClient commandeClient = new CommandeClient();
 		commandeClient.setId(commandeClientDto.getId());
 		commandeClient.setCode(commandeClientDto.getCode());
+		commandeClient.setIdEntreprise(commandeClientDto.getIdEntreprise());
 		commandeClient.setClient(ClientDto.toEntity(commandeClientDto.getClient()));
 		commandeClient.setDateCommande(commandeClientDto.getDateCommande());
 
