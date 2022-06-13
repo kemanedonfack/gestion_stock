@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("/articles")
+import static com.kemane.gestionstock.utils.Constants.APP_ROOT;
+
+@Api(APP_ROOT+"/articles")
 @RestController
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
 
-    @PostMapping(value = "/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = APP_ROOT+"/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un nouvel artcile ", notes = "(Ajouter / Modifier)", response = ArticleDto.class)
     @ApiResponses(value = {
@@ -29,7 +31,7 @@ public class ArticleController {
         return articleService.save(articleDto);
     }
 
-    @GetMapping(value = "/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un artcile ", notes = "Cette méthode permet de chercher un artcile grâce à son ID", response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'article à été trouvé dans la base de données"),
@@ -39,7 +41,7 @@ public class ArticleController {
         return articleService.findById(idArticle);
     }
 
-    @GetMapping(value = "/articles/{codeArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/articles/{codeArticle}/code", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un artcile ", notes = "Cette méthode permet de chercher un artcile grâce à son code", response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'article à été trouvé dans la base de données"),
@@ -49,7 +51,7 @@ public class ArticleController {
        return articleService.findByCodeArticle(codeArticle);
     }
 
-    @GetMapping(value = "/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT+"/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Récuperer tous les articles ", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'article à été trouvé dans la base de données"),
@@ -58,7 +60,7 @@ public class ArticleController {
         return articleService.findAll();
     }
 
-    @DeleteMapping(value = "/articles/delete/{idArticle}")
+    @DeleteMapping(value = APP_ROOT+"/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un article ", notes = "Cette méthode permet de supprimer un artcile dans la bdd par son ID", response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'article à été supprimé de la base de données")
