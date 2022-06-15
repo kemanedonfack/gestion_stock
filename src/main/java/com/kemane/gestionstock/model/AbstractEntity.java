@@ -3,12 +3,7 @@ package com.kemane.gestionstock.model;
 import java.io.Serializable;
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,13 +29,20 @@ public class AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@CreatedDate
-	@Column(name = "date_creation", nullable = false)
-	@JsonIgnore
+	//@CreatedDate
+	@Column(name = "date_creation")
 	private Instant creationDate;
 	
-	@LastModifiedDate
-	@Column(name = "date_modification", nullable = false)
-	@JsonIgnore
+	//@LastModifiedDate
+	@Column(name = "date_modification")
 	private Instant lastModifiedDate;
+
+	@PrePersist
+	void prePersist(){
+		creationDate = Instant.now();
+	}
+	@PreUpdate
+	void preUpdate(){
+		lastModifiedDate = Instant.now();
+	}
 }
