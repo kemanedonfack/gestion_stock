@@ -12,10 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {
@@ -29,20 +26,13 @@ public class AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//@CreatedDate
-	@Column(name = "date_creation")
+	@CreatedDate
+	@Column(name = "date_creation", nullable = false, updatable = false)
 	private Instant creationDate;
 	
-	//@LastModifiedDate
+	@LastModifiedDate
 	@Column(name = "date_modification")
 	private Instant lastModifiedDate;
 
-	@PrePersist
-	void prePersist(){
-		creationDate = Instant.now();
-	}
-	@PreUpdate
-	void preUpdate(){
-		lastModifiedDate = Instant.now();
-	}
+
 }
