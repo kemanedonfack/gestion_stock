@@ -1,5 +1,6 @@
 package com.kemane.gestionstock.model;
 
+import java.time.Instant;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -38,7 +39,7 @@ public class Utilisateur extends AbstractEntity {
 	private String email;
 	
 	@Column(name = "date_naissance")
-	private String dateDeNaissance;
+	private Instant dateDeNaissance;
 	
 	@Column(name = "mot_de_passe")
 	private String password;

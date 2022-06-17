@@ -1,6 +1,8 @@
 package com.kemane.gestionstock.dto;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kemane.gestionstock.model.Fournisseur;
@@ -21,7 +23,7 @@ public class UtilisateurDto {
 
 	private String email;
 
-	private String dateDeNaissance;
+	private Instant dateDeNaissance;
 
 	private String password;
 
@@ -41,29 +43,36 @@ public class UtilisateurDto {
 		return UtilisateurDto.builder()
 				.id(utilisateur.getId())
 				.name(utilisateur.getName())
-				.dateDeNaissance(utilisateur.getDateDeNaissance())
-				.password(utilisateur.getPassword())
 				.surname(utilisateur.getSurname())
-				.photo(utilisateur.getPhoto())
 				.email(utilisateur.getEmail())
-				.entreprise(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
+				.password(utilisateur.getPassword())
+				.dateDeNaissance(utilisateur.getDateDeNaissance())
 				.adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
+				.photo(utilisateur.getPhoto())
+				.entreprise(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
+				.roles(
+						utilisateur.getRoles() != null ?
+								utilisateur.getRoles().stream()
+										.map(RoleDto::fromEntity)
+										.collect(Collectors.toList()) : null
+				)
 				.build();
 	}
 
-	public static Utilisateur toEntity(UtilisateurDto utilisateurDto) {
-		if(utilisateurDto == null) {
+	public static Utilisateur toEntity(UtilisateurDto dto) {
+		if(dto == null) {
 			return null;
 		}
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setId(utilisateurDto.getId());
-		utilisateur.setName(utilisateurDto.getName());
-		utilisateur.setPhoto(utilisateurDto.getPhoto());
-		utilisateur.setEmail(utilisateurDto.getEmail());
-		utilisateur.setSurname(utilisateurDto.getSurname());
-		utilisateur.setDateDeNaissance(utilisateurDto.getDateDeNaissance());
-		utilisateur.setPassword(utilisateurDto.getPassword());
-		utilisateur.setEntreprise(EntrepriseDto.toEntity(utilisateurDto.getEntreprise()));
+		utilisateur.setId(dto.getId());
+		utilisateur.setName(dto.getName());
+		utilisateur.setSurname(dto.getSurname());
+		utilisateur.setEmail(dto.getEmail());
+		utilisateur.setPassword(dto.getPassword());
+		utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+		utilisateur.setAdresse(AdresseDto.toEntity(dto.getAdresse()));
+		utilisateur.setPhoto(dto.getPhoto());
+		utilisateur.setEntreprise(EntrepriseDto.toEntity(dto.getEntreprise()));
 
 		return  utilisateur;
 	}

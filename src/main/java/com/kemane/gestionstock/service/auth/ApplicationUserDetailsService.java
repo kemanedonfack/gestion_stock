@@ -1,32 +1,30 @@
 package com.kemane.gestionstock.service.auth;
 
-import com.kemane.gestionstock.exception.EntityNotFoundException;
-import com.kemane.gestionstock.exception.ErrorCodes;
-import com.kemane.gestionstock.model.Utilisateur;
-import com.kemane.gestionstock.repository.UtilisateurRepository;
+import com.kemane.gestionstock.dto.UtilisateurDto;
+import com.kemane.gestionstock.model.auth.ExtendedUser;
+import com.kemane.gestionstock.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private UtilisateurService utilisateurService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UtilisateurDto utilisateur = utilisateurService.findByEmail(email);
 
-        Utilisateur utilisateur = utilisateurRepository.findUtilisateurByEmail(email).orElseThrow(() ->
-            new EntityNotFoundException("Aucun utilisateur trouvé", ErrorCodes.UTILISATEUR_NOT_FOUND)
-        );
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
 
-        return new User(utilisateur.getEmail(), utilisateur.getPassword(), Collections.emptyList());
+        return new ExtendedUser(utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getEntreprise().getId(), authorities);
     }
 }

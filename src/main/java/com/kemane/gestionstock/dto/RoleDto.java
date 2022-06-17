@@ -27,14 +27,14 @@ public class RoleDto {
 				.build();
 	}
 
-	public static Role toEntity(RoleDto roleDto) {
-		if(roleDto == null) {
+	public static Role toEntity(RoleDto dto) {
+		if (dto == null) {
 			return null;
 		}
-		Role role = new Role();
-		role.setId(roleDto.getId());
-		role.setRoleName(roleDto.getRoleName());
-
-		return  role;
+		Role roles = new Role();
+		roles.setId(dto.getId());
+		roles.setRoleName(dto.getRoleName());
+		roles.setUtilisateur(UtilisateurDto.toEntity(dto.getUtilisateur()));
+		return roles;
 	}
 }
