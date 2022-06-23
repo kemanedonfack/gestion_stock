@@ -13,6 +13,7 @@ import com.kemane.gestionstock.validator.FournisseurValidator;
 import com.kemane.gestionstock.validator.UtilisateurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,9 @@ import java.util.stream.Collectors;
 public class UtilisateurService {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UtilisateurRepository utilisateurRepository;
 
     public UtilisateurDto save(UtilisateurDto utilisateurDto){
@@ -32,6 +36,7 @@ public class UtilisateurService {
             log.error("Utilisateur is not valid", utilisateurDto);
             throw new InvalidEntityException("Utilisateur n'est pas valide", ErrorCodes.UTILISATEUR_NOT_VALID, errors);
         }
+        utilisateurDto.setPassword(passwordEncoder.encode(utilisateurDto.getPassword()));
         Utilisateur saveUtilisateur = utilisateurRepository.save(UtilisateurDto.toEntity(utilisateurDto));
 
         return UtilisateurDto.fromEntity(saveUtilisateur);

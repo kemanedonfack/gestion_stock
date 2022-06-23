@@ -29,7 +29,7 @@ public class AuthentificationController {
     private JwtUtil jwtUtil;
 
     @PostMapping( "/authenticate")
-    public AuthenticationResponse authenticate(@RequestBody AuthentificationRequest request){
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthentificationRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getLogin(),
@@ -40,6 +40,6 @@ public class AuthentificationController {
 
         final String jwt = jwtUtil.generateToken((ExtendedUser) userDetails);
 
-        return AuthenticationResponse.builder().accessToken(jwt).build();
+        return ResponseEntity.ok(AuthenticationResponse.builder().accessToken(jwt).build());
     }
 }
